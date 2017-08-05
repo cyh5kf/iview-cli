@@ -1,14 +1,14 @@
 <template>
-    <div id="app">
-        <router-view></router-view>
+    <div>
+        <h2>这是Profile页</h2>
     </div>
+    
 </template>
 <script>
 export default {
+  
 };
 </script>
 <style lang="less" scoped>
-#app {
-    height: 100%;
-}
+
 </style>

@@ -3,6 +3,7 @@ import iView from 'iview';
 import router from './router/index';
 import Vuex from 'vuex';
 import App from './app.vue';
+import './common/style/base.less';
 import 'iview/dist/styles/iview.css';
 
 Vue.use(Vuex);
