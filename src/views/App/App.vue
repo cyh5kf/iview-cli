@@ -95,6 +95,7 @@ export default {
 </script>
 <style lang="less"  scoped>
 .layout {
+    min-width: 1000px;
     width: 100%;
     height: 100%;
     border: 1px solid #d7dde4;
@@ -164,6 +165,14 @@ export default {
 
 .layout-hide-text .layout-text {
     display: none;
+}
+
+.layout-hide-text {
+    .layout-logo-left {
+        h3 {
+            display: none;
+        }
+    }
 }
 
 .ivu-col {
