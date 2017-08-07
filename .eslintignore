@@ -1,2 +1,2 @@
-src/router.js
+src/router/index.js
 src/vendors.js

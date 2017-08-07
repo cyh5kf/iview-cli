@@ -2,28 +2,24 @@
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <Row type="flex">
             <Col :span="spanLeft" class="layout-menu-left">
-            <Menu active-name="1" theme="dark" width="auto">
-                <div class="layout-logo-left"></div>
+            <Menu :active-name="setActive" theme="dark" width="auto" @on-select="routeTo">
+                <div class="layout-logo-left">
+                    <h3>后台管理</h3>
+                </div>
     
-                <Menu-item name="1">
-                    <router-link to="/main/home" class="a-link">
-                        <Icon type="ios-navigate" :size="iconSize"></Icon>
-                        <span class="layout-text">home</span>
-                    </router-link>
+                <Menu-item name="home">
+                    <Icon type="ios-navigate" :size="iconSize"></Icon>
+                    <span class="layout-text">home</span>
                 </Menu-item>
     
-                <Menu-item name="2">
-                    <router-link to="/main/profile" class="a-link">
-                        <Icon type="ios-keypad" :size="iconSize"></Icon>
-                        <span class="layout-text">profile</span>
-                    </router-link>
+                <Menu-item name="profile">
+                    <Icon type="ios-keypad" :size="iconSize"></Icon>
+                    <span class="layout-text">profile</span>
                 </Menu-item>
     
-                <Menu-item name="3">
-                    <router-link to="/main/posts" class="a-link">
-                        <Icon type="ios-analytics" :size="iconSize"></Icon>
-                        <span class="layout-text">posts</span>
-                    </router-link>
+                <Menu-item name="posts">
+                    <Icon type="ios-analytics" :size="iconSize"></Icon>
+                    <span class="layout-text">posts</span>
                 </Menu-item>
     
             </Menu>
@@ -33,21 +29,21 @@
                 <i-button type="text" @click="toggleClick">
                     <Icon type="navicon" size="32"></Icon>
                 </i-button>
+                <i-button type="text" @click="logOutClick" class="logOut">
+                    <Icon type="power" size="20"></Icon>
+                    <span>Logout</span>
+                </i-button>
             </div>
             <div class="layout-breadcrumb">
                 <Breadcrumb>
-                    <Breadcrumb-item href="#">首页</Breadcrumb-item>
-                    <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
-                    <Breadcrumb-item>某应用</Breadcrumb-item>
+                    <Breadcrumb-item>首页</Breadcrumb-item>
+                    <Breadcrumb-item>{{this.$route.path.replace('/main/','')}}</Breadcrumb-item>
                 </Breadcrumb>
             </div>
             <div class="layout-content">
                 <div class="layout-content-main">
                     <router-view></router-view>
                 </div>
-            </div>
-            <div class="layout-copy">
-                2011-2016 &copy; TalkingData
             </div>
             </Col>
         </Row>
@@ -64,6 +60,9 @@ export default {
     computed: {
         iconSize() {
             return this.spanLeft === 5 ? 14 : 24;
+        },
+        setActive() {
+            return this.$route.path.replace('/main/','');
         }
     },
     methods: {
@@ -75,6 +74,21 @@ export default {
                 this.spanLeft = 5;
                 this.spanRight = 19;
             }
+        },
+        routeTo(e) {
+            // console.log(e);
+            this.$router.push(e);
+        },
+        logOutClick() {
+            this.$Modal.confirm({
+                title: 'Log out ?',
+                content: 'Are you sure you want to log out of the system?',
+                onOk: () => {
+                    this.$router.push('/login');
+                },
+                onCancel: () => {
+                }
+            });
         }
     }
 };
@@ -98,36 +112,7 @@ export default {
     padding: 10px 15px 0;
 }
 
-.a-link {
-    color: hsla(0,0%,100%,.7);
-    position: relative;
-    display: block;
-    &:before {
-        content: '';
-        position: absolute;
-        top: -10px;
-        left: -20px;
-        right: -20px;
-        bottom: -10px;
-    }
-}
-
-.ivu-menu-item-active , .ivu-menu-submenu-title-active {
-    .a-link {
-        color: #2d8cf0 !important;
-        background: 0 0 !important;
-    }
-}
-
-.ivu-menu-item:hover, .ivu-menu-submenu-title:hover {
-    .a-link {
-        color: #fff;
-        background: #495060;
-    }
-}
-
 .layout-content {
-    height: 100%;
     margin: 15px;
     overflow: hidden;
     background: #fff;
@@ -152,6 +137,14 @@ export default {
     height: 60px;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.logOut {
+    font-size: 16px;
+    margin-right: 15px;
 }
 
 .layout-logo-left {
@@ -160,6 +153,9 @@ export default {
     background: #5b6270;
     border-radius: 3px;
     margin: 15px auto;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
 }
 
 .layout-ceiling-main a {
