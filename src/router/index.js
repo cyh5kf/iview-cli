@@ -3,11 +3,11 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-const Login = resolve => require(['views/login/login'], resolve);
-const App = resolve => require(['views/App/App'], resolve);
-const Home = resolve => require(['views/home/home'], resolve);
-const Profile = resolve => require(['views/profile/profile'], resolve);
-const Posts = resolve => require(['views/posts/posts'], resolve);
+const Login = resolve => require(['../views/login/login'], resolve);
+const App = resolve => require(['../views/App/App'], resolve);
+const Home = resolve => require(['../views/home/home'], resolve);
+const Profile = resolve => require(['../views/profile/profile'], resolve);
+const Posts = resolve => require(['../views/posts/posts'], resolve);
 
 const router = new Router({
     mode: 'history',
