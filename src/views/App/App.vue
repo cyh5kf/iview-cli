@@ -1,10 +1,10 @@
 <template>
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <Row type="flex">
-            <Col :span="spanLeft" class="layout-menu-left">
-            <Menu :active-name="setActive" theme="dark" width="auto" @on-select="routeTo">
+            <Col :span="spanLeft" class="layout-menu-left" :style="{ width: menuWidth}">
+            <Menu :active-name="setActive" theme="dark" style="width: 100%;" @on-select="routeTo">
                 <div class="layout-logo-left">
-                    <h3>后台管理</h3>
+                    <h3>后台管理管理系统</h3>
                 </div>
     
                 <Menu-item name="home">
@@ -24,7 +24,7 @@
     
             </Menu>
             </Col>
-            <Col :span="spanRight">
+            <Col class="layout-right" :style="{ left: rightPosition}" >
             <div class="layout-header">
                 <i-button type="text" @click="toggleClick">
                     <Icon type="navicon" size="32"></Icon>
@@ -53,26 +53,29 @@
 export default {
     data() {
         return {
-            spanLeft: 5,
-            spanRight: 19
+            spanLeft: 5
         };
     },
     computed: {
         iconSize() {
             return this.spanLeft === 5 ? 14 : 24;
         },
+        menuWidth() {
+            return this.spanLeft === 5 ? '300px' : '100px';
+        },
+        rightPosition() {
+            return this.spanLeft === 5 ? '300px' : '100px';
+        },
         setActive() {
-            return this.$route.path.replace('/main/','');
+            return this.$route.path.replace('/home/','');
         }
     },
     methods: {
         toggleClick() {
             if (this.spanLeft === 5) {
                 this.spanLeft = 2;
-                this.spanRight = 22;
             } else {
                 this.spanLeft = 5;
-                this.spanRight = 19;
             }
         },
         routeTo(e) {
@@ -132,6 +135,22 @@ export default {
 
 .layout-menu-left {
     background: #464c5b;
+    overflow: auto;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 21;
+}
+
+.layout-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    z-index: 1;
+    transition: left .3s;
 }
 
 .layout-header {
